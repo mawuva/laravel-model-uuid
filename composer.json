@@ -1,0 +1,55 @@
+{
+    "name": "mawuekom/laravel-model-uuid",
+    "description": "Easily work with UUIDs in your Laravel models",
+    "keywords": [
+        "mawuekom",
+        "laravel-model-uuid"
+    ],
+    "homepage": "https://github.com/mawuekom/laravel-model-uuid",
+    "license": "MIT",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Ephraïm Seddor",
+            "email": "seddorephraim7@gmail.com",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": "^7.4|^8.0",
+        "illuminate/support": "^8.0",
+        "ramsey/uuid": "^4.1"
+    },
+    "require-dev": {
+        "orchestra/testbench": "^6.0",
+        "phpunit/phpunit": "^9.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Mawuekom\\LaravelModelUuid\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Mawuekom\\LaravelModelUuid\\Tests\\": "tests"
+        }
+    },
+    "scripts": {
+        "test": "vendor/bin/phpunit",
+        "test-coverage": "vendor/bin/phpunit --coverage-html coverage"
+
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Mawuekom\\LaravelModelUuid\\LaravelModelUuidServiceProvider"
+            ],
+            "aliases": {
+                "LaravelModelUuid": "Mawuekom\\LaravelModelUuid\\LaravelModelUuidFacade"
+            }
+        }
+    }
+}
