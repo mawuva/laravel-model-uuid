@@ -26,12 +26,12 @@
     },
     "autoload": {
         "psr-4": {
-            "Mawuekom\\LaravelModelUuid\\": "src"
+            "Mawuekom\\ModelUuid\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Mawuekom\\LaravelModelUuid\\Tests\\": "tests"
+            "Mawuekom\\ModelUuid\\Tests\\": "tests"
         }
     },
     "scripts": {
@@ -45,10 +45,10 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Mawuekom\\LaravelModelUuid\\LaravelModelUuidServiceProvider"
+                "Mawuekom\\ModelUuid\\ModelUuidServiceProvider"
             ],
             "aliases": {
-                "LaravelModelUuid": "Mawuekom\\LaravelModelUuid\\LaravelModelUuidFacade"
+                "ModelUuid": "Mawuekom\\ModelUuid\\ModelUuidFacade"
             }
         }
     }

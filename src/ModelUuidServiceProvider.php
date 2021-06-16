@@ -1,10 +1,10 @@
 <?php
 
-namespace Mawuekom\LaravelModelUuid;
+namespace Mawuekom\ModelUuid;
 
 use Illuminate\Support\ServiceProvider;
 
-class LaravelModelUuidServiceProvider extends ServiceProvider
+class ModelUuidServiceProvider extends ServiceProvider
 {
     /**
      * Bootstrap the application services.
@@ -54,7 +54,7 @@ class LaravelModelUuidServiceProvider extends ServiceProvider
 
         // Register the main class to use with the facade
         $this->app->singleton('laravel-model-uuid', function () {
-            return new LaravelModelUuid;
+            return new ModelUuid;
         });
     }
 }
