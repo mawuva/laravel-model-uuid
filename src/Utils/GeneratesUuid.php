@@ -124,8 +124,10 @@ trait GeneratesUuid
      */
     public function scopeWhereUuid($query, $uuid, $uuidColumn = null): Builder
     {
+        $model = get_class();
+
         $uuidColumn = $this ->checkUuidColumn($uuidColumn);
-        $this ->validatesUuid($uuidColumn, $uuid, get_class());
+        $this ->validatesUuid($uuidColumn, $uuid, $model);
 
         $uuid = array_map(function ($uuid) {
             return Str::lower($uuid);
@@ -175,5 +177,45 @@ trait GeneratesUuid
         }
 
         return $this->uuidColumns()[0];
+    }
+
+    /**
+     * Get ID from UUID
+     *
+     * @param string $uuidColumn
+     * @param string $uuid
+     *
+     * @return mixed
+     */
+    public function getIdFromUuid($uuidColumn, $uuid)
+    {
+        $model = get_class();
+
+        $uuidColumn = $this ->checkUuidColumn($uuidColumn);
+        $this ->validatesUuid($uuidColumn, $uuid, $model);
+
+        $id = property_exists($this, 'primaryKey') ? $this ->primaryKey : 'id';
+
+        return $model::where($uuidColumn, $uuid) ->first() ->{$id};
+    }
+
+    /**
+     * Load data from the given UUID
+     *
+     * @param string $uuidColumn
+     * @param string $uuid
+     *
+     * @return mixed
+     */
+    public function loadFromUuid($uuidColumn, $uuid)
+    {
+        $model = get_class();
+
+        $uuidColumn = $this ->checkUuidColumn($uuidColumn);
+        $this ->validatesUuid($uuidColumn, $uuid, $model);
+
+        $id = property_exists($this, 'primaryKey') ? $this ->primaryKey : 'id';
+
+        return $model::where($id, $this ->getIdFromUuid($uuidColumn, $uuid)) ->first();
     }
 }
