@@ -6,6 +6,7 @@ use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
+use Mawuekom\ModelUuid\Utils\ValidatesUuid;
 use Ramsey\Uuid\Exception\InvalidUuidStringException;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
@@ -23,6 +24,8 @@ use Ramsey\Uuid\UuidInterface;
  */
 trait GeneratesUuid
 {
+    use ValidatesUuid;
+
     /**
      * The UUID versions.
      *
@@ -121,9 +124,8 @@ trait GeneratesUuid
      */
     public function scopeWhereUuid($query, $uuid, $uuidColumn = null): Builder
     {
-        $uuidColumn = ! is_null($uuidColumn) && in_array($uuidColumn, $this->uuidColumns())
-            ? $uuidColumn
-            : $this->uuidColumns()[0];
+        $uuidColumn = $this ->checkUuidColumn($uuidColumn);
+        $this ->validatesUuid($uuidColumn, $uuid, get_class());
 
         $uuid = array_map(function ($uuid) {
             return Str::lower($uuid);
@@ -156,5 +158,22 @@ trait GeneratesUuid
         }
 
         return Arr::wrap(Uuid::fromString($uuid)->getBytes());
+    }
+
+    /**
+     * Check if uuid column exists. 
+     * If not return the first column in model's uuid column array
+     *
+     * @param string $uuidColumn
+     *
+     * @return string
+     */
+    private function checkUuidColumn($uuidColumn)
+    {
+        if (! is_null($uuidColumn) && in_array($uuidColumn, $this->uuidColumns())) {
+            return $uuidColumn;
+        }
+
+        return $this->uuidColumns()[0];
     }
 }
