@@ -154,6 +154,16 @@ class PostController extends Controller
 }
 ```
 
+There is also a useful helper function `is_the_given_id_a_uuid` that return `true` if the given id is a uuid or `false` if not.
+
+```php
+<?php
+
+$data = is_the_given_id_a_uuid('custom_column', 
+'ebb5c735-0308-4edc-9aea-8a270aebfe15'
+ Post::class);
+```
+
 ## License
 
 The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
