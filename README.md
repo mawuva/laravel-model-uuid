@@ -2,7 +2,7 @@
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/mawuekom/laravel-model-uuid.svg?style=flat-square)](https://packagist.org/packages/mawuekom/laravel-model-uuid)
 [![Total Downloads](https://img.shields.io/packagist/dt/mawuekom/laravel-model-uuid.svg?style=flat-square)](https://packagist.org/packages/mawuekom/laravel-model-uuid)
-![GitHub Actions](https://github.com/mawuekom/laravel-model-uuid/actions/workflows/main.yml/badge.svg)
+![GitHub Actions](https://github.com/mawuva/laravel-model-uuid/actions/workflows/main.yml/badge.svg)
 
 A simple solution to easily work with UUIDs in your Laravel models.
 
