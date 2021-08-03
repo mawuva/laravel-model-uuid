@@ -159,9 +159,7 @@ There is also a useful helper function `is_the_given_id_a_uuid` that return `tru
 ```php
 <?php
 
-$data = is_the_given_id_a_uuid('custom_column', 
-'ebb5c735-0308-4edc-9aea-8a270aebfe15'
- Post::class);
+$data = is_the_given_id_a_uuid('custom_column', 'ebb5c735-0308-4edc-9aea-8a270aebfe15', Post::class);
 ```
 
 ## License
