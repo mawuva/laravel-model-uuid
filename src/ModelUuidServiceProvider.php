@@ -11,7 +11,7 @@ class ModelUuidServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        
+        require_once __DIR__.'/helpers.php';
     }
 
     /**
