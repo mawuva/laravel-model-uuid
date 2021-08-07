@@ -9,10 +9,11 @@ if (!function_exists('is_the_given_id_a_uuid')) {
      * @param string $uuidColumn
      * @param string $uuid
      * @param Illuminate\Database\Eloquent\Model $class
+     * @param bool $inTrashed
      *
      * @return bool
      */
-    function is_the_given_id_a_uuid($uuidColumn, $uuid, $class): bool {
+    function is_the_given_id_a_uuid($uuidColumn, $uuid, $class, $inTrashed = false): bool {
         $data = (new class { 
             use ValidatesUuid;
 
@@ -25,9 +26,9 @@ if (!function_exists('is_the_given_id_a_uuid')) {
              *
              * @return bool
              */
-            public function resolveUuid($uuidColumn, $uuid, $class): bool {
+            public function resolveUuid($uuidColumn, $uuid, $class, $inTrashed = false): bool {
                 try {
-                    $this ->validatesUuid($uuidColumn, $uuid, $class);
+                    $this ->validatesUuid($uuidColumn, $uuid, $class, $inTrashed);
                     return true;
                 }
 
@@ -38,6 +39,6 @@ if (!function_exists('is_the_given_id_a_uuid')) {
             }
          });
 
-         return $data ->resolveUuid($uuidColumn, $uuid, $class);
+         return $data ->resolveUuid($uuidColumn, $uuid, $class, $inTrashed);
     }
 }

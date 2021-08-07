@@ -22,14 +22,15 @@ trait ValidatesUuid
      * @param string $uuidColumn
      * @param string $uuid
      * @param Illuminate\Database\Eloquent\Model $class
+     * @param bool $inTrashed
      *
      * @return void
      */
-    private function validatesUuid($uuidColumn, $uuid, $class)
+    private function validatesUuid($uuidColumn, $uuid, $class, $inTrashed = false)
     {
         $this->checkEmpty($uuid, $class);
         $this->checkUuid($uuid, $class);
-        $this->checkExists($uuidColumn, $uuid, $class);
+        $this->checkExists($uuidColumn, $uuid, $class, $inTrashed);
     }
 
     /**
@@ -68,12 +69,17 @@ trait ValidatesUuid
      * @param string $uuidColumn
      * @param string $uuid
      * @param Illuminate\Database\Eloquent\Model $class
+     * @param bool $inTrashed
      *
      * @return void
      */
-    private function checkExists($uuidColumn, $uuid, $class)
+    private function checkExists($uuidColumn, $uuid, $class, $inTrashed = false)
     {
-        if (!$class::where($uuidColumn, $uuid) ->first()) {
+        $check = ($inTrashed)
+                    ? $class::where($uuidColumn, $uuid) ->withTrashed() ->first()
+                    : $class::where($uuidColumn, $uuid) ->first();
+
+        if (!$check) {
             $this->throwExceptionMessage('Invalid', $class);
         }
     }
