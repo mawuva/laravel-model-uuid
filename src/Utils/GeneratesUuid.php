@@ -170,7 +170,7 @@ trait GeneratesUuid
      *
      * @return string
      */
-    private function checkUuidColumn($uuidColumn = null)
+    public function checkUuidColumn($uuidColumn = null)
     {
         if (! is_null($uuidColumn) && in_array($uuidColumn, $this->uuidColumns())) {
             return $uuidColumn;
