@@ -166,11 +166,11 @@ trait GeneratesUuid
      * Check if uuid column exists. 
      * If not return the first column in model's uuid column array
      *
-     * @param string $uuidColumn
+     * @param string|null $uuidColumn
      *
      * @return string
      */
-    private function checkUuidColumn($uuidColumn)
+    private function checkUuidColumn($uuidColumn = null)
     {
         if (! is_null($uuidColumn) && in_array($uuidColumn, $this->uuidColumns())) {
             return $uuidColumn;
