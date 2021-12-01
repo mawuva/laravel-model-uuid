@@ -48,15 +48,14 @@ if (!function_exists('resolve_key')) {
     /**
      * Get key to use to make queries
      * 
-     * @param string $config
-     * @param string $entity
+     * @param string|Illuminate\Database\Eloquent\Model $model
      * @param int|string $id
      * @param bool $inTrashed
      * 
      * @return string|null
      */
-    function resolve_key(string $model, $id = null, $inTrashed = false) {
-        $modelInstance  = (!$model instanceof Model) ? app($model) : $model;
+    function resolve_key($model, $id = null, $inTrashed = false) {
+        $model          = (!$model instanceof Model) ? app($model) : $model;
         $uuidColumn     = $modelInstance ->checkUuidColumn();
         $modelPK        = $modelInstance ->getKeyName();
 
