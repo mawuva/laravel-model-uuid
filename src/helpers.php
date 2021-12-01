@@ -55,12 +55,19 @@ if (!function_exists('resolve_key')) {
      * @return string|null
      */
     function resolve_key($model, $id = null, $inTrashed = false) {
-        $model          = (!$model instanceof Model) ? app($model) : $model;
-        $uuidColumn     = $model ->checkUuidColumn();
-        $modelPK        = $model ->getKeyName();
+        $model      = (!$model instanceof Model) ? app($model) : $model;
+        $modelPK    = $model ->getKeyName();
 
-        return (is_the_given_id_a_uuid($uuidColumn, $id, $model, $inTrashed))
-                    ? $uuidColumn
-                    : $modelPK;
+        if (method_exists($model, 'checkUuidColumn')) {
+            $uuidColumn     = $model ->checkUuidColumn();
+
+            return (is_the_given_id_a_uuid($uuidColumn, $id, $model, $inTrashed))
+                        ? $uuidColumn
+                        : $modelPK;
+        }
+
+        else {
+            return $modelPK;
+        }
     }
 }
