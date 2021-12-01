@@ -1,6 +1,7 @@
 <?php
 
 use Mawuekom\ModelUuid\Utils\ValidatesUuid;
+use Illuminate\Database\Eloquent\Model;
 
 if (!function_exists('is_the_given_id_a_uuid')) {
     /**
@@ -55,9 +56,9 @@ if (!function_exists('resolve_key')) {
      * @return string|null
      */
     function resolve_key(string $model, $id = null, $inTrashed = false) {
-        $modelInstance = app($model);
-        $uuidColumn = $modelInstance ->checkUuidColumn();
-        $modelPK    = $modelInstance ->getKeyName();
+        $modelInstance  = (!$model instanceof Model) ? app($model) : $model;
+        $uuidColumn     = $modelInstance ->checkUuidColumn();
+        $modelPK        = $modelInstance ->getKeyName();
 
         return (is_the_given_id_a_uuid($uuidColumn, $id, $model, $inTrashed))
                     ? $uuidColumn
