@@ -56,8 +56,8 @@ if (!function_exists('resolve_key')) {
      */
     function resolve_key($model, $id = null, $inTrashed = false) {
         $model          = (!$model instanceof Model) ? app($model) : $model;
-        $uuidColumn     = $modelInstance ->checkUuidColumn();
-        $modelPK        = $modelInstance ->getKeyName();
+        $uuidColumn     = $model ->checkUuidColumn();
+        $modelPK        = $model ->getKeyName();
 
         return (is_the_given_id_a_uuid($uuidColumn, $id, $model, $inTrashed))
                     ? $uuidColumn
